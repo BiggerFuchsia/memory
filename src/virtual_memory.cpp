@@ -73,7 +73,7 @@ void foonathan::memory::virtual_memory_decommit(void* memory, std::size_t no_pag
     FOONATHAN_MEMORY_ASSERT_MSG(result, "cannot decommit memory");
 }
 #elif defined(__unix__) || defined(__APPLE__) || defined(__VXWORKS__)                              \
-    || defined(__QNXNTO__) // POSIX systems
+    || defined(__QNXNTO__) || defined(__FUCHSIA__) // POSIX systems
 #include <sys/mman.h>
 #include <unistd.h>
 

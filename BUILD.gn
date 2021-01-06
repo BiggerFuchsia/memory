@@ -1,0 +1,59 @@
+import("//build/package.gni")
+import("//src/sys/build/components.gni")
+
+config("config") {
+  cflags = [ "-Wno-missing-field-initializers" ]
+  cflags += [ "-Wno-conversion" ]
+
+  include_dirs = [
+    "./include",
+    "./include/foonathan/memory/",
+    "./build/src",
+  ]
+
+  defines = [
+    "__FUCHSIA__",
+  ]
+}
+
+group("memory") {
+  deps = [
+    ":lib",
+  ]
+
+  public_configs = [ ":config" ]
+}
+
+shared_library("lib") {
+  output_name = "foonathan_memory"
+
+  sources = [
+    "src/detail/align.cpp",
+    "src/detail/debug_helpers.cpp",
+    "src/detail/assert.cpp",
+    "src/detail/free_list.cpp",
+    "src/detail/free_list_array.cpp",
+    "src/detail/small_free_list.cpp",
+    "src/debugging.cpp",
+    "src/error.cpp",
+    "src/heap_allocator.cpp",
+    "src/iteration_allocator.cpp",
+    "src/malloc_allocator.cpp",
+    "src/memory_arena.cpp",
+    "src/memory_pool.cpp",
+    "src/memory_pool_collection.cpp",
+    "src/memory_stack.cpp",
+    "src/new_allocator.cpp",
+    "src/static_allocator.cpp",
+    "src/temporary_allocator.cpp",
+    "src/virtual_memory.cpp",
+  ]
+
+  configs += [ "//build/config:no_rtti" ]
+  configs -= [ "//build/config:no_rtti" ]
+  configs += [ "//build/config:no_exceptions" ]
+  configs -= [ "//build/config:no_exceptions" ]
+
+  configs += [ ":config" ]
+}
+
