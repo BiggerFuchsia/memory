@@ -24,7 +24,7 @@ group("memory") {
   public_configs = [ ":config" ]
 }
 
-shared_library("lib") {
+static_library("lib") {
   output_name = "foonathan_memory"
 
   sources = [
